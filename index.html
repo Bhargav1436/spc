@@ -501,6 +501,64 @@
     .back-to-top:hover { background: var(--gold-dark); transform: translateY(-3px) scale(1.08); box-shadow: 0 8px 30px rgba(200,16,46,0.35); }
     .back-to-top svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2.5; }
 
+    /* ===== WhatsApp Floating Button ===== */
+    .whatsapp-float {
+      position: fixed; bottom: 100px; right: 32px; width: 56px; height: 56px;
+      background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      z-index: 8000; box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      transition: all 0.3s var(--ease); cursor: pointer; border: none;
+      animation: whatsappPulse 2s ease-in-out infinite;
+    }
+    .whatsapp-float:hover { transform: scale(1.12); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: #fff; }
+    .whatsapp-float-tooltip {
+      position: absolute; right: 68px; top: 50%; transform: translateY(-50%);
+      background: #fff; color: #1a1a1a; font-size: 13px; font-weight: 600;
+      padding: 8px 16px; border-radius: 8px; white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.12); opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .whatsapp-float:hover .whatsapp-float-tooltip { opacity: 1; }
+    @keyframes whatsappPulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 12px rgba(37,211,102,0.1); }
+    }
+
+    /* ===== Project Locations Map ===== */
+    .project-map { background: var(--off-white); overflow: visible; }
+    .project-map-wrapper {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    }
+    .india-map-container {
+      position: relative; width: 100%; max-width: 420px; margin: 0 auto;
+      aspect-ratio: 800 / 900;
+    }
+    .india-map-container svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .india-map-container svg path { transition: fill 0.3s ease; }
+    .svg-pin { cursor: pointer; }
+    .svg-pin-label { pointer-events: none; font-size: 11px; }
+    .svg-pin-label.visible { opacity: 1 !important; }
+    .map-locations-list { display: flex; flex-direction: column; gap: 10px; }
+    .map-location-item {
+      display: flex; align-items: center; gap: 16px; padding: 16px 20px;
+      background: #fff; border: 1px solid var(--border-light); border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+    .map-location-item:hover { border-color: var(--gold); transform: translateX(4px); box-shadow: 0 4px 16px rgba(200,16,46,0.08); }
+    .map-location-dot { width: 10px; height: 10px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+    .map-location-name { font-family: var(--font-heading); font-weight: 700; font-size: 14px; color: var(--text-on-white); }
+    .map-location-count { margin-left: auto; font-family: var(--font-mono); font-size: 13px; color: var(--gold); font-weight: 700; }
+    .map-location-total {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px; background: var(--gold); border-radius: 10px; margin-top: 6px;
+    }
+    .map-location-total span:first-child { font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: #fff; }
+    .map-location-total span:last-child { font-family: var(--font-mono); font-size: 18px; color: #fff; font-weight: 800; }
+    @media (max-width: 768px) {
+      .project-map-wrapper { grid-template-columns: 1fr; }
+      .india-map-container { max-width: 320px; }
+    }
+
     /* ===== About Section ===== */
     .about { background: var(--white); }
     .about .container {
@@ -3155,6 +3213,149 @@
     </div>
   </section>
 
+  <!-- Project Locations Map -->
+  <section class="project-map" id="project-map">
+    <div class="container">
+      <div class="section-headline">Our Presence</div>
+      <h2 class="section-title">Project <span>Locations</span></h2>
+      <p class="section-subtext">SPC has delivered projects across key industrial corridors in Karnataka, building India's infrastructure backbone.</p>
+      <div class="project-map-wrapper">
+        <div class="india-map-container">
+          <svg viewBox="0 0 800 900" xmlns="http://www.w3.org/2000/svg">
+            <!-- Karnataka State Outline -->
+            <path d="M175,95 L195,80 L225,72 L255,60 L290,50 L320,45 L355,42 L390,40 L420,42 L455,48 L485,55 L510,65 L535,58 L560,52 L590,48 L620,55 L645,68 L660,82 L670,100 L675,120 L680,145 L685,170 L682,195 L675,220 L665,240 L650,255 L640,275 L635,300 L638,325 L645,348 L655,370 L660,395 L658,420 L648,440 L632,455 L615,465 L598,478 L585,495 L575,515 L568,535 L560,555 L548,572 L530,585 L510,595 L488,602 L465,608 L445,618 L428,632 L415,650 L405,670 L392,688 L375,700 L355,710 L332,718 L310,725 L288,730 L265,732 L242,728 L220,720 L200,708 L182,695 L168,678 L155,658 L145,635 L138,610 L130,585 L120,562 L108,540 L95,520 L85,498 L80,475 L78,450 L82,425 L88,400 L95,375 L100,350 L108,325 L115,300 L120,275 L128,250 L138,228 L148,208 L155,185 L160,162 L162,140 L168,118 Z"
+              fill="rgba(200,16,46,0.05)" stroke="var(--gold)" stroke-width="2" stroke-linejoin="round"/>
+            <!-- Bengaluru region highlight -->
+            <circle cx="445" cy="625" r="85" fill="rgba(200,16,46,0.06)" stroke="rgba(200,16,46,0.12)" stroke-width="1.5" stroke-dasharray="6,4"/>
+            <text x="445" y="555" text-anchor="middle" font-size="11" fill="rgba(200,16,46,0.25)" font-family="var(--font-mono)" font-weight="700" letter-spacing="3">BENGALURU REGION</text>
+            <!-- City labels -->
+            <text x="200" y="178" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">BELGAUM</text>
+            <text x="350" y="135" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">GULBARGA</text>
+            <text x="550" y="148" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">RAICHUR</text>
+            <text x="300" y="340" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">SHIMOGA</text>
+            <text x="500" y="380" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">CHITRADURGA</text>
+            <text x="200" y="480" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">MANGALORE</text>
+            <text x="340" y="550" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">HASSAN</text>
+            <text x="280" y="680" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">MYSORE</text>
+            <text x="500" y="700" text-anchor="middle" font-size="10" fill="rgba(200,16,46,0.35)" font-family="var(--font-mono)" font-weight="700">BENGALURU</text>
+            <text x="370" y="490" text-anchor="middle" font-size="9" fill="rgba(0,0,0,0.2)" font-family="var(--font-mono)">TUMAKURU</text>
+            <!-- KARNATAKA title -->
+            <text x="400" y="25" text-anchor="middle" font-size="16" fill="rgba(200,16,46,0.15)" font-family="var(--font-heading)" font-weight="800" letter-spacing="8">KARNATAKA</text>
+            <!-- Location Pin Markers -->
+            <!-- Bengaluru HQ -->
+            <g class="svg-pin">
+              <circle cx="420" cy="650" r="14" fill="none" stroke="#c8102e" stroke-width="1.5" opacity="0.4">
+                <animate attributeName="r" values="14;26" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.5;0" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <path d="M420,632 c-10,0 -18,8 -18,18 c0,14 18,28 18,28 s18,-14 18,-28 c0,-10 -8,-18 -18,-18z" fill="#c8102e" stroke="#fff" stroke-width="2"/>
+              <circle cx="420" cy="649" r="5" fill="#fff"/>
+            </g>
+            <text x="420" y="622" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Bengaluru — HQ</text>
+            <!-- Devanahalli / KIA -->
+            <g class="svg-pin">
+              <circle cx="410" cy="600" r="12" fill="none" stroke="#c8102e" stroke-width="1" opacity="0.3">
+                <animate attributeName="r" values="12;22" dur="2.2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.4;0" dur="2.2s" repeatCount="indefinite"/>
+              </circle>
+              <path d="M410,585 c-8,0 -14,6 -14,14 c0,11 14,22 14,22 s14,-11 14,-22 c0,-8 -6,-14 -14,-14z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="410" cy="598" r="4" fill="#fff"/>
+            </g>
+            <text x="410" y="577" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Devanahalli / KIA — 12</text>
+            <!-- Hoskote -->
+            <g class="svg-pin">
+              <path d="M470,632 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="470" cy="643" r="3.5" fill="#fff"/>
+            </g>
+            <text x="470" y="625" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Hoskote — 2</text>
+            <!-- Bommasandra / Jigani -->
+            <g class="svg-pin">
+              <path d="M430,667 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="430" cy="678" r="3.5" fill="#fff"/>
+            </g>
+            <text x="430" y="660" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Bommasandra — 3</text>
+            <!-- Malur -->
+            <g class="svg-pin">
+              <path d="M490,642 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="490" cy="653" r="3.5" fill="#fff"/>
+            </g>
+            <text x="490" y="635" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Malur — 1</text>
+            <!-- Tumakuru / Sira -->
+            <g class="svg-pin">
+              <path d="M350,547 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="350" cy="558" r="3.5" fill="#fff"/>
+            </g>
+            <text x="350" y="540" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Tumakuru — 2</text>
+            <!-- Vemgal -->
+            <g class="svg-pin">
+              <path d="M390,567 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="390" cy="578" r="3.5" fill="#fff"/>
+            </g>
+            <text x="390" y="560" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Vemgal — 2</text>
+            <!-- Narasapura -->
+            <g class="svg-pin">
+              <path d="M480,612 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="480" cy="623" r="3.5" fill="#fff"/>
+            </g>
+            <text x="480" y="605" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Narasapura — 1</text>
+            <!-- Thornahalli -->
+            <g class="svg-pin">
+              <path d="M450,657 c-7,0 -12,5 -12,12 c0,10 12,19 12,19 s12,-9 12,-19 c0,-7 -5,-12 -12,-12z" fill="#c8102e" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="450" cy="668" r="3.5" fill="#fff"/>
+            </g>
+            <text x="450" y="650" text-anchor="middle" font-size="1000" fill="#c8102e" font-family="var(--font-mono)" font-weight="800" opacity="0" class="svg-pin-label">Thornahalli — 1</text>
+          </svg>
+        </div>
+        <div class="map-locations-list">
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Devanahalli / KIA</span>
+            <span class="map-location-count">12 Projects</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Bommasandra / Jigani</span>
+            <span class="map-location-count">3 Projects</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Hoskote</span>
+            <span class="map-location-count">2 Projects</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Tumakuru / Sira</span>
+            <span class="map-location-count">2 Projects</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Vemgal</span>
+            <span class="map-location-count">2 Projects</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Malur</span>
+            <span class="map-location-count">1 Project</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Narasapura</span>
+            <span class="map-location-count">1 Project</span>
+          </div>
+          <div class="map-location-item">
+            <span class="map-location-dot"></span>
+            <span class="map-location-name">Thornahalli</span>
+            <span class="map-location-count">1 Project</span>
+          </div>
+          <div class="map-location-total">
+            <span>Total Locations</span>
+            <span>9 Regions — 24+ Projects</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Banner -->
   <section class="cta-banner">
     <div class="container">
@@ -3287,6 +3488,12 @@
       </div>
     </div>
   </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/919535355765?text=Hi%20SPC%2C%20I%20would%20like%20to%20enquire%20about%20your%20construction%20services." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <span class="whatsapp-float-tooltip">Chat with us</span>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.315 0-4.458-.764-6.182-2.054l-.432-.338-3.2 1.072 1.072-3.2-.338-.432A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+  </a>
 
   <!-- Back to Top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
@@ -3433,6 +3640,41 @@
         btn.textContent = 'Message Sent!';
         btn.style.background = '#22c55e';
         setTimeout(function() { btn.textContent = 'Send Message \u2192'; btn.style.background = ''; }, 3000);
+      });
+    })();
+
+    // Map pin hover — show label with background
+    (function() {
+      var pins = document.querySelectorAll('g.svg-pin');
+      var svg = document.querySelector('.india-map-container svg');
+      pins.forEach(function(pin) {
+        var label = pin.nextElementSibling;
+        if (!label || !label.classList.contains('svg-pin-label')) return;
+        // Create background rect for label
+        var bbox;
+        var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        rect.setAttribute('fill', '#1a1a1a');
+        rect.setAttribute('rx', '4');
+        rect.setAttribute('opacity', '0');
+        rect.classList.add('svg-pin-label-bg');
+        svg.insertBefore(rect, label);
+
+        pin.addEventListener('mouseenter', function() {
+          label.setAttribute('opacity', '1');
+          // Position rect behind text
+          var b = label.getBBox();
+          rect.setAttribute('x', b.x - 6);
+          rect.setAttribute('y', b.y - 3);
+          rect.setAttribute('width', b.width + 12);
+          rect.setAttribute('height', b.height + 6);
+          rect.setAttribute('opacity', '0.9');
+          label.setAttribute('fill', '#fff');
+        });
+        pin.addEventListener('mouseleave', function() {
+          label.setAttribute('opacity', '0');
+          rect.setAttribute('opacity', '0');
+          label.setAttribute('fill', '#c8102e');
+        });
       });
     })();
 
