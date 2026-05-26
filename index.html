@@ -8,6 +8,9 @@
   <meta name="author" content="Suryapriya Constructions Pvt Ltd">
   <title>SPC — Suryapriya Constructions Pvt Ltd | Industrial Construction Excellence</title>
 
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -57,7 +60,7 @@
       --font-heading: 'Space Grotesk', system-ui, sans-serif;
       --font-body: 'DM Sans', system-ui, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --container-max: 1200px;
+      --container-max: 1280px;
       --section-padding: 100px;
       --gap: 24px;
       --nav-height: 80px;
@@ -137,8 +140,8 @@
     /* ===== Typography ===== */
     .section-headline {
       font-family: var(--font-mono);
-      font-size: 11px;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.3em;
       color: var(--gold);
@@ -318,7 +321,7 @@
     @media (min-width: 1280px) { .nav-links { display: flex; } }
     .nav-links > li { position: relative; }
     .nav-links > li > a {
-      font-family: var(--font-body); font-size: 11px; font-weight: 600;
+      font-family: var(--font-body); font-size: 13px; font-weight: 600;
       text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-on-white-muted);
       padding: 28px 14px; display: flex; align-items: center; gap: 4px; transition: color 0.3s ease;
     }
@@ -333,20 +336,35 @@
     }
 
     .nav-dropdown {
-      position: absolute; top: 100%; left: 0; min-width: 220px;
-      background: var(--white); border: 1px solid var(--border-light);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
-      opacity: 0; visibility: hidden; transform: translateY(8px);
-      transition: all 0.3s var(--ease); z-index: 9200;
+      position: absolute; top: 100%; left: -12px; min-width: 240px;
+      background: #fff;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      opacity: 0; visibility: hidden; transform: translateY(12px);
+      transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1); z-index: 9200;
+      padding: 10px 0;
+      border-top: 3px solid var(--gold);
     }
     .nav-links > li:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
     .nav-dropdown a {
-      display: flex; align-items: center; gap: 8px; padding: 11px 20px;
-      font-size: 13px; font-weight: 400; color: var(--text-on-white-muted); transition: all 0.25s ease;
+      display: flex; align-items: center; gap: 10px; padding: 14px 24px;
+      font-size: 15px; font-weight: 600; color: var(--text-on-white);
+      transition: all 0.25s ease; border-radius: 0;
+      position: relative;
     }
-    .nav-dropdown a::before { content: ''; width: 0; height: 1px; background: var(--gold); transition: width 0.25s ease; }
-    .nav-dropdown a:hover { color: var(--gold); background: rgba(200,16,46,0.05); }
-    .nav-dropdown a:hover::before { width: 12px; }
+    .nav-dropdown a::before {
+      content: ''; width: 0; height: 2px; border-radius: 2px;
+      background: var(--gold); transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .nav-dropdown a:hover {
+      color: var(--gold); background: rgba(200,16,46,0.04);
+      padding-left: 28px;
+    }
+    .nav-dropdown a:hover::before { width: 14px; }
+    .nav-dropdown a:not(:last-child) {
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
 
     .nav-cta-btn {
       display: none; padding: 10px 28px; background: var(--gold); color: #fff;
@@ -423,6 +441,7 @@
     .hero .container {
       position: relative; z-index: 3; display: flex; flex-direction: column; justify-content: center;
       align-items: flex-start; padding-top: 80px; padding-bottom: 100px; min-height: 100vh;
+      margin-left: max(24px, calc((100% - var(--container-max)) / 2 + 20px));
     }
 
     .hero-content { max-width: 680px; text-align: left; }
@@ -430,7 +449,7 @@
       display: inline-flex; align-items: center; gap: 10px; padding: 10px 22px;
       background: rgba(200,16,46,0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border: 1px solid rgba(200,16,46,0.2); border-radius: 30px;
-      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      font-family: var(--font-mono); font-size: 13px; font-weight: 500;
       color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px;
       animation: heroSlideUp 0.8s var(--ease-out) both;
     }
@@ -440,14 +459,14 @@
       animation: pulse-ring 2s ease-in-out infinite;
     }
     .hero h1 {
-      font-family: var(--font-heading); font-size: clamp(36px, 5.5vw, 64px); font-weight: 800;
+      font-family: var(--font-heading); font-size: clamp(42px, 6vw, 74px); font-weight: 800;
       line-height: 1.1; color: var(--white); margin-bottom: 20px;
       animation: heroSlideUp 0.8s var(--ease-out) 0.1s both;
     }
     .hero h1 span { color: var(--gold); }
     .hero-description {
-      font-size: 17px; line-height: 1.8; color: var(--text-on-navy-muted);
-      margin-bottom: 36px; max-width: 500px;
+      font-size: 19px; line-height: 1.8; color: var(--text-on-navy-muted);
+      margin-bottom: 36px; max-width: 540px;
       animation: heroSlideUp 0.8s var(--ease-out) 0.2s both;
     }
     .hero-ctas {
@@ -462,10 +481,10 @@
     .hero-stat:first-child { padding-left: 0; }
     .hero-stat:last-child { border-right: none; }
     .hero-stat-value {
-      font-family: var(--font-heading); font-size: 28px; font-weight: 800;
-      color: var(--gold); line-height: 1; margin-bottom: 4px;
+      font-family: var(--font-heading); font-size: 32px; font-weight: 800;
+      color: var(--gold); line-height: 1; margin-bottom: 6px;
     }
-    .hero-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-on-navy-subtle); }
+    .hero-stat-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-on-navy-subtle); }
 
     @keyframes heroSlideUp {
       from { opacity: 0; transform: translateY(40px); filter: blur(4px); }
@@ -685,23 +704,40 @@
     }
 
     /* ===== Clients Strip ===== */
+    /* (4) Section background — blueprint grid pattern */
     .clients-strip {
       background: var(--off-white);
-      padding: 40px 0;
+      padding: 60px 0;
       overflow: hidden;
       border-top: 1px solid var(--border-light);
       border-bottom: 1px solid var(--border-light);
+      position: relative;
+    }
+    .clients-strip::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(200,16,46,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,16,46,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .clients-strip::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      width: 600px; height: 600px; transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(200,16,46,0.04) 0%, transparent 70%);
+      pointer-events: none;
     }
     .clients-strip-label {
       text-align: center;
       font-family: 'Outfit', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.2em;
       color: var(--text-on-white-muted);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
       display: flex; align-items: center; justify-content: center; gap: 16px;
+      position: relative; z-index: 1;
     }
     .clients-strip-label::before,
     .clients-strip-label::after {
@@ -714,41 +750,130 @@
     .clients-strip-label span {
       color: var(--gold); font-weight: 700;
     }
-    .clients-track-wrapper {
+    .clients-grid {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 28px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative; z-index: 1;
+    }
+    .clients-grid .client-card { width: calc((100% - 120px) / 6); }
+    @media (max-width: 999px) { .clients-grid .client-card { width: calc((100% - 72px) / 4); } }
+    @media (max-width: 599px) { .clients-grid .client-card { width: calc((100% - 24px) / 3); } .clients-grid { gap: 12px; } }
+
+    /* (2) 3D tilt card base */
+    .client-card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 12px;
+      padding: 22px 16px 14px;
+      display: flex; flex-direction: column; align-items: center;
+      gap: 10px;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      cursor: pointer;
       position: relative;
+      opacity: 1; transform: perspective(600px);
+      transform-style: preserve-3d;
       overflow: hidden;
     }
-    .clients-track-wrapper::before,
-    .clients-track-wrapper::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: 80px;
-      height: 100%;
-      z-index: 2;
-      pointer-events: none;
-    }
-    .clients-track-wrapper::before { left: 0; background: linear-gradient(to right, var(--off-white), transparent); }
-    .clients-track-wrapper::after { right: 0; background: linear-gradient(to left, var(--off-white), transparent); }
 
-    .clients-track {
-      display: flex;
-      align-items: center;
-      gap: 48px;
-      animation: clientsScroll 30s linear infinite;
-      width: max-content;
-    }
-    .clients-track img {
-      height: 40px;
-      width: auto;
+    /* (1) Glow ring on hover */
+    .client-card-glow {
+      position: absolute; top: 50%; left: 50%;
+      width: 80px; height: 80px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,16,46,0.15) 0%, transparent 70%);
+      opacity: 0;
       transition: all 0.4s ease;
+      pointer-events: none; z-index: 0;
     }
-    .clients-track img:hover {
-      transform: scale(1.1);
+    .client-card:hover .client-card-glow {
+      opacity: 1;
+      width: 120px; height: 120px;
+      animation: clientGlowPulse 2s ease-in-out infinite;
     }
-    @keyframes clientsScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    @keyframes clientGlowPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      50% { transform: translate(-50%, -50%) scale(1.15); opacity: 0.6; }
+    }
+
+    /* (6) Shimmer sweep on hover */
+    .client-card-shimmer {
+      position: absolute; top: 0; left: -100%; z-index: 3;
+      width: 60%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+      transform: skewX(-20deg);
+      pointer-events: none;
+      transition: none;
+    }
+    .client-card:hover .client-card-shimmer {
+      animation: clientShimmer 0.8s ease forwards;
+    }
+    @keyframes clientShimmer {
+      0% { left: -100%; }
+      100% { left: 150%; }
+    }
+
+    /* Bottom accent bar */
+    .client-card-bar {
+      position: absolute; bottom: 0; left: 50%;
+      width: 0; height: 3px; border-radius: 3px;
+      background: linear-gradient(90deg, var(--gold), #e8293f);
+      transform: translateX(-50%);
+      transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: 2;
+    }
+    .client-card:hover .client-card-bar { width: 70%; }
+
+    .client-card:hover {
+      box-shadow: 0 16px 40px rgba(200,16,46,0.12), 0 4px 12px rgba(0,0,0,0.06);
+      border: 2px solid var(--gold);
+      overflow: visible;
+    }
+    .client-card img {
+      height: 85px; width: auto; max-width: 100%;
+      object-fit: contain;
+      transition: all 0.4s ease;
+      position: relative; z-index: 1;
+      filter: brightness(1.15) contrast(1.1);
+    }
+    .client-card:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.3) contrast(1.15);
+    }
+    .client-card-name {
+      font-family: var(--font-body); font-size: 12px; font-weight: 800;
+      color: var(--text-on-white); text-align: center; line-height: 1.3;
+      position: relative; z-index: 1;
+      opacity: 0; max-height: 0; overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .client-card:hover .client-card-name {
+      opacity: 1; max-height: 30px;
+    }
+
+    /* (5) Tooltip with industry info */
+    .client-card-tooltip {
+      position: absolute; bottom: calc(100% + 12px); left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background: #111; color: #fff;
+      font-size: 14px; font-weight: 700;
+      padding: 10px 18px; border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0; pointer-events: none;
+      transition: all 0.3s ease;
+      font-family: var(--font-body); z-index: 10;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    }
+    .client-card-tooltip::after {
+      content: ''; position: absolute; top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent; border-top-color: #111;
+    }
+    .client-card:hover .client-card-tooltip {
+      opacity: 1; transform: translateX(-50%) translateY(0);
     }
 
     /* ===== Vision & Mission ===== */
@@ -763,6 +888,7 @@
 
     .vision-image-side {
       position: relative; min-height: 320px; overflow: hidden;
+      margin-left: 24px; border-radius: 12px;
     }
     .vision-image-side img {
       width: 100%; height: 100%; object-fit: cover;
@@ -844,18 +970,18 @@
     .perfect .section-subtext { color: var(--text-on-dark-muted); }
 
     .perfect-word {
-      display: flex; justify-content: center; gap: 6px; margin-bottom: 56px;
+      display: flex; justify-content: center; gap: 28px; margin-bottom: 56px;
       flex-wrap: wrap;
     }
     .perfect-word-letter {
-      font-family: var(--font-heading); font-size: clamp(48px, 8vw, 96px); font-weight: 800;
-      color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,0.12);
+      font-family: var(--font-heading); font-size: clamp(64px, 10vw, 128px); font-weight: 800;
+      color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,0.12);
       line-height: 1; transition: all 0.5s var(--ease-out); cursor: pointer;
-      position: relative;
+      position: relative; letter-spacing: 0.08em;
     }
     .perfect-word-letter.active,
     .perfect-word-letter:hover {
-      color: var(--gold); -webkit-text-stroke: 1.5px var(--gold);
+      color: var(--gold); -webkit-text-stroke: 2px var(--gold);
       text-shadow: 0 0 40px rgba(200,16,46,0.3);
     }
 
@@ -1105,7 +1231,79 @@
     /* --- Org Chart (Visual Tree) --- */
     .org-chart {
       margin-bottom: 80px; position: relative;
-      padding: 48px 0;
+      padding: 48px 0; display: flex; justify-content: center;
+    }
+    .org-chart-wrap {
+      position: relative; display: inline-block; border-radius: 16px; overflow: hidden;
+      cursor: pointer;
+    }
+    .org-chart-img {
+      max-width: 100%; height: auto; display: block;
+      border-radius: 16px;
+      transition: transform 0.6s var(--ease-out), filter 0.6s ease;
+      filter: saturate(0.9) brightness(0.97);
+    }
+    .org-chart-wrap:hover .org-chart-img {
+      transform: scale(1.03);
+      filter: saturate(1.15) brightness(1.05);
+    }
+    /* Animated gradient border */
+    .org-chart-wrap::before {
+      content: ''; position: absolute; inset: -3px; z-index: -1;
+      border-radius: 18px;
+      background: conic-gradient(from var(--org-angle, 0deg), var(--gold), #ff4d6a, var(--gold), rgba(255,255,255,0.2), var(--gold));
+      animation: orgBorderSpin 4s linear infinite;
+    }
+    @keyframes orgBorderSpin {
+      to { --org-angle: 360deg; }
+    }
+    @property --org-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    /* Spotlight overlay that follows hover */
+    .org-chart-wrap::after {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      border-radius: 16px;
+      background: radial-gradient(circle 250px at var(--mx, 50%) var(--my, 50%), rgba(200,16,46,0.08), transparent 70%);
+      opacity: 0; transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .org-chart-wrap:hover::after { opacity: 1; }
+    /* Bottom shine line */
+    .org-chart-shine {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px; z-index: 2;
+      border-radius: 0 0 16px 16px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0); transition: transform 0.5s var(--ease-out);
+    }
+    .org-chart-wrap:hover .org-chart-shine { transform: scaleX(1); }
+    /* Floating bubbles */
+    .org-chart-bubbles {
+      position: absolute; inset: 0; z-index: 3; pointer-events: none;
+      overflow: hidden; border-radius: 16px;
+    }
+    .org-bubble {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(200,16,46,0.25), rgba(200,16,46,0.05));
+      border: 1px solid rgba(200,16,46,0.15);
+      opacity: 0; animation: bubbleFloat linear infinite;
+    }
+    .org-bubble:nth-child(1) { width: 12px; height: 12px; left: 10%; animation-duration: 6s; animation-delay: 0s; }
+    .org-bubble:nth-child(2) { width: 8px; height: 8px; left: 25%; animation-duration: 5s; animation-delay: 1s; }
+    .org-bubble:nth-child(3) { width: 16px; height: 16px; left: 45%; animation-duration: 7s; animation-delay: 0.5s; }
+    .org-bubble:nth-child(4) { width: 10px; height: 10px; left: 65%; animation-duration: 5.5s; animation-delay: 2s; }
+    .org-bubble:nth-child(5) { width: 14px; height: 14px; left: 80%; animation-duration: 6.5s; animation-delay: 1.5s; }
+    .org-bubble:nth-child(6) { width: 6px; height: 6px; left: 35%; animation-duration: 4.5s; animation-delay: 3s; }
+    .org-bubble:nth-child(7) { width: 10px; height: 10px; left: 90%; animation-duration: 5s; animation-delay: 0.8s; }
+    .org-bubble:nth-child(8) { width: 18px; height: 18px; left: 55%; animation-duration: 8s; animation-delay: 2.5s; }
+    @keyframes bubbleFloat {
+      0% { bottom: -20px; opacity: 0; transform: translateX(0) scale(0.5); }
+      10% { opacity: 0.7; }
+      50% { transform: translateX(20px) scale(1); }
+      90% { opacity: 0.5; }
+      100% { bottom: 110%; opacity: 0; transform: translateX(-15px) scale(0.8); }
     }
     /* Background glow */
     .org-chart::before {
@@ -1321,7 +1519,7 @@
     .personnel-photo-wrap {
       position: relative;
       width: 100%;
-      aspect-ratio: 3/4;
+      aspect-ratio: 4/5;
       overflow: hidden;
       background: var(--avatar-bg);
     }
@@ -1392,7 +1590,7 @@
       opacity: 0;
     }
     .personnel-card:hover .personnel-bio {
-      max-height: 200px; opacity: 1;
+      max-height: 500px; opacity: 1;
     }
     .personnel-exp {
       color: var(--text-on-white-muted);
@@ -1436,19 +1634,30 @@
       max-width: 900px;
       margin: 0 auto;
     }
-    /* Center vertical spine */
+    /* Center vertical spine — background track */
     .approach-timeline::before {
       content: ''; position: absolute; top: 0; left: 50%;
-      width: 2px; height: 100%; transform: translateX(-50%);
-      background: linear-gradient(to bottom, var(--gold), rgba(200,16,46,0.15), rgba(200,16,46,0.05));
+      width: 3px; height: 100%; transform: translateX(-50%);
+      background: rgba(200,16,46,0.08);
+      border-radius: 3px;
+    }
+    /* Progress fill line — grows on scroll */
+    .approach-timeline-progress {
+      position: absolute; top: 0; left: 50%;
+      width: 3px; height: 0%; transform: translateX(-50%);
+      background: linear-gradient(to bottom, var(--gold), #ff4d6a);
+      border-radius: 3px;
+      transition: height 0.1s linear;
+      z-index: 0;
     }
     /* Animated flowing dot */
     .approach-timeline::after {
       content: ''; position: absolute; left: 50%; top: 0;
-      width: 8px; height: 8px; border-radius: 50%;
+      width: 10px; height: 10px; border-radius: 50%;
       background: var(--gold); transform: translateX(-50%);
-      box-shadow: 0 0 12px rgba(200,16,46,0.5);
+      box-shadow: 0 0 16px rgba(200,16,46,0.6), 0 0 40px rgba(200,16,46,0.2);
       animation: approachDotFlow 4s ease-in-out infinite;
+      z-index: 1;
     }
     @keyframes approachDotFlow {
       0% { top: 0; opacity: 0; }
@@ -1491,13 +1700,13 @@
     /* Circle node — centered on spine */
     .approach-stage-node {
       position: absolute; top: 4px;
-      width: 48px; height: 48px; border-radius: 50%;
-      background: #fff; border: 2px solid rgba(200,16,46,0.2);
+      width: 52px; height: 52px; border-radius: 50%;
+      background: #fff; border: 3px solid rgba(200,16,46,0.25);
       display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-mono); font-size: 14px; font-weight: 700;
+      font-family: var(--font-mono); font-size: 15px; font-weight: 800;
       color: var(--gold);
       transition: all 0.4s var(--ease);
-      z-index: 2; box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      z-index: 5; box-shadow: 0 4px 20px rgba(200,16,46,0.1);
     }
     .approach-stage:nth-child(odd) .approach-stage-node {
       right: -24px;
@@ -1512,31 +1721,39 @@
     }
     .approach-stage:hover .approach-stage-node {
       background: var(--gold); color: #fff;
-      box-shadow: 0 6px 24px rgba(200,16,46,0.35);
-      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(200,16,46,0.45), 0 0 40px rgba(200,16,46,0.15);
+      transform: scale(1.15);
     }
-    /* Pulse ring */
+    /* Pulse ring — continuous on view */
     .approach-stage-node::after {
-      content: ''; position: absolute; inset: -4px;
-      border: 2px solid rgba(200,16,46,0.2); border-radius: 50%;
+      content: ''; position: absolute; inset: -6px;
+      border: 2px solid rgba(200,16,46,0.3); border-radius: 50%;
       opacity: 0;
     }
     .approach-stage.in-view .approach-stage-node::after {
-      animation: approachPulse 2s ease-out 0.5s;
+      animation: approachPulse 2.5s ease-out infinite;
     }
     @keyframes approachPulse {
-      0% { transform: scale(1); opacity: 0.6; }
-      100% { transform: scale(1.5); opacity: 0; }
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.8); opacity: 0; }
     }
 
     /* Card */
     .approach-stage-card {
-      background: #fff; border-radius: 14px; padding: 28px 28px;
+      background: #fff; border-radius: 14px; padding: 30px 30px;
       border: 1px solid rgba(0,0,0,0.06);
-      transition: all 0.4s var(--ease);
+      transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
       box-shadow: 0 2px 12px rgba(0,0,0,0.04);
       position: relative;
+      overflow: hidden;
     }
+    .approach-stage-card::after {
+      content: ''; position: absolute; top: 0; left: 0;
+      width: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), #ff4d6a);
+      transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .approach-stage:hover .approach-stage-card::after { width: 100%; }
     /* Arrow pointing toward spine — left cards point right */
     .approach-stage:nth-child(odd) .approach-stage-card::before {
       content: ''; position: absolute; top: 16px; right: -8px;
@@ -1561,7 +1778,7 @@
     }
     .approach-stage:hover .approach-stage-card {
       border-color: rgba(200,16,46,0.15);
-      box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 56px rgba(200,16,46,0.1), 0 8px 24px rgba(0,0,0,0.08);
     }
 
     .approach-stage h3 {
@@ -1800,7 +2017,7 @@
     .projects-tab.active::after { transform: scaleX(1); }
 
     .projects-grid {
-      display: grid; grid-template-columns: 1fr; gap: 20px;
+      display: grid; grid-template-columns: 1fr; gap: 28px;
     }
     @media (min-width: 768px) { .projects-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (min-width: 1024px) { .projects-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -1824,7 +2041,7 @@
       box-shadow: var(--shadow-card-hover);
     }
     .project-card-img {
-      position: relative; width: 100%; height: 180px; overflow: hidden;
+      position: relative; width: 100%; height: 220px; overflow: hidden;
     }
     .project-card-img img {
       width: 100%; height: 100%; object-fit: cover;
@@ -1838,24 +2055,24 @@
       pointer-events: none;
     }
     .project-card-header {
-      background: var(--navy); padding: 16px 24px;
+      background: var(--navy); padding: 18px 24px;
       border-bottom: none;
       border-radius: 0;
     }
     .project-card-header h3 {
-      font-family: var(--font-heading); font-size: 14px; font-weight: 700;
+      font-family: var(--font-heading); font-size: 16px; font-weight: 700;
       color: var(--white); line-height: 1.4; margin-bottom: 4px;
     }
     .project-card-location {
-      font-size: 11px; color: var(--text-on-navy-subtle);
+      font-size: 12px; color: var(--text-on-navy-subtle);
       font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em;
     }
 
-    .project-card-body { padding: 20px 24px; }
+    .project-card-body { padding: 22px 24px; }
     .project-card-row {
       display: flex; justify-content: space-between; align-items: center;
-      padding: 8px 0; border-bottom: 1px solid var(--border-light);
-      font-size: 13px;
+      padding: 10px 0; border-bottom: 1px solid var(--border-light);
+      font-size: 14px;
     }
     .project-card-row:last-child { border-bottom: none; }
     .project-card-label { color: var(--text-on-white-muted); font-weight: 500; }
@@ -1863,7 +2080,7 @@
     .project-card-value.gold { color: var(--gold); font-family: var(--font-heading); }
 
     .project-card-scope {
-      font-size: 12px; line-height: 1.6; color: var(--text-on-white-muted);
+      font-size: 13px; line-height: 1.6; color: var(--text-on-white-muted);
       padding-top: 12px; border-top: 1px solid var(--border-light); margin-top: 8px;
     }
     .project-status {
@@ -2298,40 +2515,44 @@
   <!-- Clients Strip -->
   <div class="clients-strip">
     <div class="clients-strip-label">Trusted By <span>Industry Leaders</span></div>
-    <div class="clients-track-wrapper">
-      <div class="clients-track">
-        <img src="images/assets/img/clients/client-1.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-2.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-3.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-4.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-5.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-6.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-7.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/client-8.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-9.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-10.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-11.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-12.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-13.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-14.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-15.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-16.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-17.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-18.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-19.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-20.png" alt="Client" loading="eager">
-        <!-- Duplicate for seamless loop -->
-        <img src="images/assets/img/clients/client-1.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-2.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-3.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-4.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-5.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-6.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-7.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/client-8.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-9.png" alt="Client" loading="eager">
-        <img src="images/assets/img/clients/clients-10.png" alt="Client" loading="eager">
-      </div>
+    <div class="clients-grid" id="clientsGrid">
+      <!-- Row 1 -->
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIADB Aerospace Park</span><img src="images/clients-extra/client-p19-2.png" alt="Magellan Aerospace" loading="eager"><span class="client-card-name">Magellan Aerospace</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Aerospace Park</span><img src="images/clients-extra/client-p19-3.png" alt="Eaton" loading="eager"><span class="client-card-name">Eaton</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIADB Devanahalli</span><img src="images/clients-extra/client-p19-4.png" alt="Rossell Techsys" loading="eager"><span class="client-card-name">Rossell Techsys</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Aerospace SEZ Park</span><img src="images/clients-extra/client-p19-5.png" alt="AvioHeliTronics" loading="eager"><span class="client-card-name">AvioHeliTronics</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Aerospace SEZ Park</span><img src="images/clients-extra/client-p19-6.png" alt="Sasmos" loading="eager"><span class="client-card-name">Sasmos</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Vemgal</span><img src="images/clients-extra/client-p19-7.png" alt="Veiva Scientific" loading="eager"><span class="client-card-name">Veiva Scientific</span></div>
+      <!-- Row 2 -->
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIADB Devanahalli</span><img src="images/clients-extra/client-p20-2.png" alt="Ananth Technologies" loading="eager"><span class="client-card-name">Ananth Technologies</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Vemgal</span><img src="images/clients-extra/client-p20-3.png" alt="Plasmagen Biosciences" loading="eager"><span class="client-card-name">Plasmagen Biosciences</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Aerospace SEZ</span><img src="images/clients-extra/client-p20-4.png" alt="Wipro Aerospace" loading="eager"><span class="client-card-name">Wipro Aerospace</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIADB Devanahalli</span><img src="images/clients-extra/client-p20-5.png" alt="Altius Aerotech" loading="eager"><span class="client-card-name">Altius Aerotech</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIA Bengaluru</span><img src="images/clients-extra/client-p20-6.png" alt="Peekay Steel" loading="eager"><span class="client-card-name">Peekay Steel</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIA Bengaluru</span><img src="images/clients-extra/client-p20-7.png" alt="SATS" loading="eager"><span class="client-card-name">SATS</span></div>
+      <!-- Row 3 -->
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIADB Devanahalli</span><img src="images/clients-extra/client-p21-2.png" alt="VJ Technologies" loading="eager"><span class="client-card-name">VJ Technologies</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Jigani</span><img src="images/clients-extra/client-p21-3.png" alt="British Biologicals" loading="eager"><span class="client-card-name">British Biologicals</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIADB Devanahalli</span><img src="images/clients-extra/client-p21-4.png" alt="TUV SUD" loading="eager"><span class="client-card-name">TUV SUD</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p21-5.png" alt="Godrej Properties" loading="eager"><span class="client-card-name">Godrej Properties</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p22-2.png" alt="Cruthi Consultants" loading="eager"><span class="client-card-name">Cruthi Consultants</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p22-3.png" alt="Rohini PMC" loading="eager"><span class="client-card-name">Rohini PMC</span></div>
+      <!-- Row 4 -->
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p22-4.png" alt="JLL" loading="eager"><span class="client-card-name">JLL</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p22-5.png" alt="CBRE" loading="eager"><span class="client-card-name">CBRE</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p22-6.png" alt="Vestian" loading="eager"><span class="client-card-name">Vestian</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p22-7.png" alt="C R Narayana Rao" loading="eager"><span class="client-card-name">C R Narayana Rao</span></div>
+      <!-- Row 5 -->
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p23-2.png" alt="Savills" loading="eager"><span class="client-card-name">Savills</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p23-3.png" alt="Venkataramanan Associates" loading="eager"><span class="client-card-name">Venkataramanan Associates</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p23-4.png" alt="Thomas Associates" loading="eager"><span class="client-card-name">Thomas Associates</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p23-5.png" alt="Ascendas FirstSpace" loading="eager"><span class="client-card-name">Ascendas FirstSpace</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Sira, Tumakuru</span><img src="images/clients-extra/client-p23-6.png" alt="Wildcraft" loading="eager"><span class="client-card-name">Wildcraft</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p24-1.png" alt="Turner & Townsend" loading="eager"><span class="client-card-name">Turner & Townsend</span></div>
+      <!-- Row 6 -->
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">KIA Bengaluru</span><img src="images/clients-extra/client-p24-2.png" alt="Menzies Aviation" loading="eager"><span class="client-card-name">Menzies Aviation</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p24-3.png" alt="Cushman & Wakefield" loading="eager"><span class="client-card-name">Cushman & Wakefield</span></div>
+      <div class="client-card"><div class="client-card-glow"></div><div class="client-card-shimmer"></div><div class="client-card-bar"></div><span class="client-card-tooltip">Bengaluru</span><img src="images/clients-extra/client-p24-5.png" alt="A.N. Prakash" loading="eager"><span class="client-card-name">A.N. Prakash</span></div>
     </div>
   </div>
 
@@ -2546,103 +2767,18 @@
 
       <!-- Org Chart -->
       <div class="org-chart reveal">
-        <div class="org-tier">
-          <div class="org-tier-label">Leadership</div>
-          <div class="org-tier-nodes">
-            <div class="org-node org-top">
-              <svg class="org-icon" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
-              <span class="org-title">Managing Director</span>
-            </div>
-          </div>
-        </div>
-        <div class="org-tier">
-          <div class="org-tier-label">Senior Management</div>
-          <div class="org-tier-nodes">
-            <div class="org-node">
-              <span class="org-badge">L2</span>
-              <span class="org-title">GM (Projects)</span>
-              <span class="org-dept">Project Delivery</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L2</span>
-              <span class="org-title">GM (Finance)</span>
-              <span class="org-dept">Financial Operations</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L2</span>
-              <span class="org-title">DGM (Tendering)</span>
-              <span class="org-dept">Business Development</span>
-            </div>
-          </div>
-        </div>
-        <div class="org-tier">
-          <div class="org-tier-label">Management</div>
-          <div class="org-tier-nodes">
-            <div class="org-node">
-              <span class="org-badge">L3</span>
-              <span class="org-title">Senior Manager</span>
-              <span class="org-dept">Operations</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L3</span>
-              <span class="org-title">AGM (Accounts)</span>
-              <span class="org-dept">Finance &amp; Audit</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L3</span>
-              <span class="org-title">AGM (Admin &amp; HR)</span>
-              <span class="org-dept">People &amp; Culture</span>
-            </div>
-          </div>
-        </div>
-        <div class="org-tier">
-          <div class="org-tier-label">Operations</div>
-          <div class="org-tier-nodes">
-            <div class="org-node">
-              <span class="org-badge">L4</span>
-              <span class="org-title">Planning Manager</span>
-              <span class="org-dept">Scheduling</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L4</span>
-              <span class="org-title">Project Incharge</span>
-              <span class="org-dept">Execution</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L4</span>
-              <span class="org-title">Quantity Surveyor</span>
-              <span class="org-dept">Estimation</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L4</span>
-              <span class="org-title">Safety Incharge</span>
-              <span class="org-dept">HSE Compliance</span>
-            </div>
-          </div>
-        </div>
-        <div class="org-tier">
-          <div class="org-tier-label">Site Execution</div>
-          <div class="org-tier-nodes">
-            <div class="org-node">
-              <span class="org-badge">L5</span>
-              <span class="org-title">Site Engineer</span>
-              <span class="org-dept">Technical</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L5</span>
-              <span class="org-title">Site Supervisor</span>
-              <span class="org-dept">Field Ops</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L5</span>
-              <span class="org-title">Barbending Foreman</span>
-              <span class="org-dept">Reinforcement</span>
-            </div>
-            <div class="org-node">
-              <span class="org-badge">L5</span>
-              <span class="org-title">Shuttering Foreman</span>
-              <span class="org-dept">Formwork</span>
-            </div>
+        <div class="org-chart-wrap" id="orgChartWrap">
+          <img class="org-chart-img" src="images/outeam-main1.png" alt="SPC Organizational Structure">
+          <div class="org-chart-shine"></div>
+          <div class="org-chart-bubbles">
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
+            <div class="org-bubble"></div>
           </div>
         </div>
       </div>
@@ -2659,7 +2795,7 @@
             <h3>Mr. Madhusudhana</h3>
             <div class="personnel-role">Managing Director</div>
             <div class="personnel-exp">30+ Yrs Experience</div>
-            <p class="personnel-bio">B.E. (Electrical & Electronics) from Bangalore University. Former Project Manager at SAPA Extrusion India and ASIN Automotive Karnataka. Cultivated expertise across Automobile & Aeronautics sectors to grow SPC into a leading construction firm.</p>
+            <p class="personnel-bio">Mr. Madhusudhana has one such inspiring story. Hailing from Kolar, he has completed his Bachelor's of Engineering (Electrical & Electronics) from the Renowned Bangalore University. Having 30+ Years of experience, Mr. Madhusudhana has donned numerous hats from being a Project Manager at SAPA Extrusion India Pvt Ltd and handling Green Field Projects to being a Project Manager at ASIN Automotive Karnataka in the Automobile & Aeronautics sector. After taking up various roles at different levels, Mr. Madhusudhana has cultivated his experience & expertise to grow SPC and take it to impeccable heights of success.</p>
           </div>
         </div>
 
@@ -2669,9 +2805,9 @@
           </div>
           <div class="personnel-info-bar">
             <h3>Mr. Sharanbasava Raj Patil</h3>
-            <div class="personnel-role">General Manager - Projects</div>
+            <div class="personnel-role">General Manager</div>
             <div class="personnel-exp">20+ Yrs Experience</div>
-            <p class="personnel-bio">PMP Certified Professional & Chartered Engineer. B.E. (Civil) from VTU, Bangalore. Former Construction Manager at Tata Projects Ltd & Senior Manager at CBRE South Asia. Member of The Institution of Engineers & Valuers, India.</p>
+            <p class="personnel-bio">With a rich Experience of 20+ Years in the Field of Construction Engineering and Project Management, Mr. Sharanbasava Raj Patil is a qualified Project Management Certified Professional. He is a Chartered Engineer and Member of The Institution of Engineers & Valuers, India. He has completed his bachelor's in Engineering (Civil) from the prestigious Vishveshwaraiah Technological University, Bangalore. Having worked as Construction Manager with Tata Projects Ltd & Senior Manager at CBRE South Asia Pvt Ltd, Mr. Patil is lending his rich experience and expertise with SPC as General Manager - Projects.</p>
           </div>
         </div>
 
@@ -2680,10 +2816,10 @@
             <img src="images/person-sudharshan.png" alt="Dr. Sudharshan B S" loading="eager">
           </div>
           <div class="personnel-info-bar">
-            <h3>Dr. Sudharshan B S</h3>
-            <div class="personnel-role">Principal Consultant</div>
+            <h3>Mr. Dr. Sudharshan B S</h3>
+            <div class="personnel-role">Technical Consultant</div>
             <div class="personnel-exp">30+ Yrs Experience</div>
-            <p class="personnel-bio">Doctorate in Structural Engineering. Career started with Tata Consulting Engineers, Bangalore. Designed warehouses, industrial structures, bridges & highways. Worked on projects across India, USA, UK, UAE, Korea, Japan & more.</p>
+            <p class="personnel-bio">A Structural Engineering Doctorate from Bangalore India is been in the field of Structural / Civil Engineering for over 30 years. Professional career started with Tata Consulting Engineers, Bangalore as Design Engineer and is currently the Principal Consultant for SPC. He has designed Major structures like ware house, industrial structures, Bridges, highways and Many other Civil Engineering Structures. He has worked on projects located across INDIA, USA, UK, UAE, Korea, Japan, Indonesia, Thailand, Sudan, Maldives, Senegal and Mozambique. A recipient of many merit awards from various organizations / institutions like TCE, BHEL, Turnipseed International (USA), CASE Engineered Lumber (USA), GIBCO, etc., He is a life member of ICI (Indian Concrete Institute) and ACCE (Association of Consulting Civil Engineers).</p>
           </div>
         </div>
 
@@ -2695,7 +2831,7 @@
             <h3>Mr. Anant</h3>
             <div class="personnel-role">Structural Consultant</div>
             <div class="personnel-exp">M.Tech in Structural Engineering</div>
-            <p class="personnel-bio">Qualified M.Tech Professional in Structural Engineering. Has been instrumental in SPC's success with a modern and updated approach. Worked on some of the most prestigious projects of SPC.</p>
+            <p class="personnel-bio">Mr. Anant has been very significant in the success ladder for SPC as their Structural Consultant. Mr. Anant has modest and updated approach in Structural Engineering and is a qualified M.Tech Professional in Structural Engineering. He has worked on some of the prestigious projects of SPC.</p>
           </div>
         </div>
 
@@ -2712,7 +2848,8 @@
       <div class="approach-hero-image reveal-scale">
         <img src="images/assets/img/illustration/capabilities.png" alt="SPC Construction Capabilities" loading="eager">
       </div>
-      <div class="approach-timeline">
+      <div class="approach-timeline" id="approachTimeline">
+        <div class="approach-timeline-progress" id="approachProgress"></div>
         <div class="approach-stages reveal">
           <div class="approach-stage">
             <div class="approach-stage-node">01</div>
@@ -3416,19 +3553,19 @@
           <form id="contactForm">
             <div class="form-group">
               <label>Full Name</label>
-              <input type="text" placeholder="Your name" required>
+              <input type="text" name="name" placeholder="Your name" required>
             </div>
             <div class="form-group">
               <label>Email Address</label>
-              <input type="email" placeholder="your@email.com" required>
+              <input type="email" name="email" placeholder="your@email.com" required>
             </div>
             <div class="form-group">
               <label>Phone</label>
-              <input type="tel" placeholder="+91 XXXXX XXXXX">
+              <input type="tel" name="phone" placeholder="+91 XXXXX XXXXX">
             </div>
             <div class="form-group">
               <label>Message</label>
-              <textarea placeholder="Tell us about your project..." required></textarea>
+              <textarea name="message" placeholder="Tell us about your project..." required></textarea>
             </div>
             <button type="submit" class="form-submit">Send Message &rarr;</button>
           </form>
@@ -3494,6 +3631,139 @@
     <span class="whatsapp-float-tooltip">Chat with us</span>
     <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.315 0-4.458-.764-6.182-2.054l-.432-.338-3.2 1.072 1.072-3.2-.338-.432A9.953 9.953 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
   </a>
+
+  <!-- Admin Popup Overlay -->
+  <!-- Admin Login -->
+  <div id="adminLogin" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:center;">
+    <div style="background:#1a1a1a;border:2px solid var(--gold);border-radius:16px;padding:36px;width:90%;max-width:360px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.6);">
+      <button id="loginClose" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#666;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="width:48px;height:48px;border-radius:50%;background:var(--gold);display:inline-flex;align-items:center;justify-content:center;margin-bottom:12px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        </div>
+        <h3 style="color:#fff;font-family:var(--font-heading);font-size:18px;margin:0 0 4px;">Admin Login</h3>
+        <p style="color:#666;font-size:12px;margin:0;">Enter credentials to access admin panel</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Username</label>
+          <input type="text" id="loginUser" placeholder="Username" autocomplete="off" style="width:100%;padding:12px 14px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:14px;margin-top:4px;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Password</label>
+          <input type="password" id="loginPass" placeholder="Password" style="width:100%;padding:12px 14px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:14px;margin-top:4px;box-sizing:border-box;">
+        </div>
+        <button id="loginSubmit" style="width:100%;padding:13px;background:var(--gold);color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.1em;margin-top:4px;">Login</button>
+        <span id="loginError" style="font-size:12px;color:#ef4444;text-align:center;"></span>
+        <button id="forgotPassBtn" type="button" style="background:none;border:none;color:#666;font-size:12px;cursor:pointer;text-decoration:underline;margin-top:4px;">Forgot Password?</button>
+        <!-- Recovery Key Section (hidden by default) -->
+        <div id="recoverySection" style="display:none;margin-top:8px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.1);">
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Recovery Key</label>
+          <input type="password" id="recoveryKeyInput" placeholder="Enter master recovery key" style="width:100%;padding:12px 14px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:14px;margin-top:4px;box-sizing:border-box;">
+          <button id="recoverySubmit" style="width:100%;padding:11px;background:#22c55e;color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;margin-top:8px;">Reset to Default</button>
+          <span id="recoveryStatus" style="font-size:12px;text-align:center;display:block;margin-top:6px;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="adminOverlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.75);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;">
+    <div style="background:#1a1a1a;border:2px solid var(--gold);border-radius:16px;padding:32px;width:90%;max-width:420px;position:relative;box-shadow:0 24px 64px rgba(0,0,0,0.5);max-height:90vh;overflow-y:auto;">
+      <button id="adminClose" style="position:absolute;top:12px;right:16px;background:none;border:none;color:#666;font-size:24px;cursor:pointer;line-height:1;">&times;</button>
+      <h3 style="color:#fff;font-family:var(--font-heading);font-size:18px;margin:0 0 6px;"> Admin Settings</h3>
+      <p style="color:#666;font-size:12px;margin:0 0 20px;">Configure EmailJS keys for contact form</p>
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Public Key</label>
+          <input type="text" id="adminPublicKey" placeholder="e.g. user_ABC123xyz" style="width:100%;padding:10px 12px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:13px;font-family:var(--font-mono);margin-top:4px;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Service ID</label>
+          <input type="text" id="adminServiceId" placeholder="e.g. service_abc123" style="width:100%;padding:10px 12px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:13px;font-family:var(--font-mono);margin-top:4px;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Template ID</label>
+          <input type="text" id="adminTemplateId" placeholder="e.g. template_xyz789" style="width:100%;padding:10px 12px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:13px;font-family:var(--font-mono);margin-top:4px;box-sizing:border-box;">
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;">Receiving Email</label>
+          <input type="email" id="adminEmail" placeholder="e.g. email@spconstructions.in" style="width:100%;padding:10px 12px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:13px;font-family:var(--font-mono);margin-top:4px;box-sizing:border-box;">
+        </div>
+        <div style="display:flex;gap:10px;margin-top:6px;">
+          <button id="adminSave" style="flex:1;padding:12px;background:var(--gold);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.1em;">Save Settings</button>
+          <button id="adminClear" style="padding:12px 18px;background:transparent;color:#999;border:1px solid rgba(255,255,255,0.1);border-radius:6px;font-size:13px;cursor:pointer;">Clear</button>
+        </div>
+        <span id="adminStatus" style="font-size:12px;color:#22c55e;text-align:center;"></span>
+      </div>
+      <!-- Change Credentials -->
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);">
+        <h4 style="color:#fff;font-family:var(--font-heading);font-size:14px;margin:0 0 12px;">Change Login</h4>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <input type="text" id="adminNewUser" placeholder="New username" style="width:100%;padding:10px 12px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:13px;box-sizing:border-box;">
+          <input type="password" id="adminNewPass" placeholder="New password" style="width:100%;padding:10px 12px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#fff;font-size:13px;box-sizing:border-box;">
+          <button id="adminSaveCreds" style="width:100%;padding:10px;background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Update Login</button>
+          <span id="credsStatus" style="font-size:12px;color:#22c55e;text-align:center;"></span>
+        </div>
+      </div>
+      <!-- Link to full analytics page -->
+      <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);">
+        <button id="adminOpenAnalytics" style="width:100%;padding:12px;background:var(--gold);color:#fff;border:none;border-radius:6px;font-size:13px;font-weight:700;cursor:pointer;text-transform:uppercase;letter-spacing:0.08em;">Visitor Analytics</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full Page Visitor Analytics -->
+  <div id="analyticsPage" style="display:none;position:fixed;inset:0;z-index:100000;background:#0a0a0a;overflow-y:auto;">
+    <div style="max-width:960px;margin:0 auto;padding:40px 24px;">
+      <!-- Header -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+        <div>
+          <h2 style="color:#fff;font-family:var(--font-heading);font-size:24px;margin:0;">Visitor Analytics</h2>
+          <p style="color:#666;font-size:13px;margin:4px 0 0;">Tracking data stored in browser localStorage</p>
+        </div>
+        <button id="analyticsClose" style="background:none;border:1px solid rgba(255,255,255,0.15);color:#fff;font-size:14px;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:600;">Back to Admin</button>
+      </div>
+      <!-- Stats Cards -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;">
+        <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:24px;text-align:center;">
+          <div id="statTotal" style="font-size:36px;font-weight:800;color:var(--gold);font-family:var(--font-mono);">0</div>
+          <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-top:6px;">Total Visits</div>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:24px;text-align:center;">
+          <div id="statToday" style="font-size:36px;font-weight:800;color:var(--gold);font-family:var(--font-mono);">0</div>
+          <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-top:6px;">Today</div>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:24px;text-align:center;">
+          <div id="statUnique" style="font-size:36px;font-weight:800;color:var(--gold);font-family:var(--font-mono);">0</div>
+          <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-top:6px;">Unique Days</div>
+        </div>
+        <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:24px;text-align:center;">
+          <div id="statLastVisit" style="font-size:13px;font-weight:600;color:var(--gold);font-family:var(--font-mono);">—</div>
+          <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.1em;margin-top:6px;">Last Visit</div>
+        </div>
+      </div>
+      <!-- Visit Log Table -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h3 style="color:#fff;font-family:var(--font-heading);font-size:16px;margin:0;">Visit Log</h3>
+        <button id="adminResetStats" style="padding:8px 16px;background:transparent;color:#666;border:1px solid rgba(255,255,255,0.1);border-radius:6px;font-size:11px;cursor:pointer;font-weight:600;">Reset All Data</button>
+      </div>
+      <div style="background:#141414;border:1px solid rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead>
+            <tr style="background:#111;">
+              <th style="padding:14px 16px;text-align:left;color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(255,255,255,0.1);">#</th>
+              <th style="padding:14px 16px;text-align:left;color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(255,255,255,0.1);">Date & Time</th>
+              <th style="padding:14px 16px;text-align:left;color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(255,255,255,0.1);">Device</th>
+              <th style="padding:14px 16px;text-align:left;color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(255,255,255,0.1);">Browser</th>
+              <th style="padding:14px 16px;text-align:left;color:var(--gold);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;border-bottom:1px solid rgba(255,255,255,0.1);">Referrer</th>
+            </tr>
+          </thead>
+          <tbody id="visitLogBody"></tbody>
+        </table>
+        <div id="visitLogEmpty" style="display:none;padding:40px;text-align:center;color:#666;font-size:14px;">No visits recorded yet.</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Back to Top -->
   <button class="back-to-top" id="backToTop" aria-label="Back to top">
@@ -3630,16 +3900,345 @@
       });
     })();
 
-    // Contact Form
+    // Admin Panel — login + popup overlay
+    (function() {
+      var loginOverlay = document.getElementById('adminLogin');
+      var overlay = document.getElementById('adminOverlay');
+      var authenticated = false;
+
+      // SHA-256 hash function
+      async function sha256(str) {
+        var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+      }
+
+      // Default hashed credentials: admin / spc@2026
+      var DEFAULT_USER_HASH = '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918';
+      var DEFAULT_PASS_HASH = 'e6421e95df83553de6263dd4e38e9016a20f569b79fb389f37dbf4c68c4d9419';
+      // Flag: once admin changes credentials, defaults are disabled forever
+      var CREDS_SET_KEY = 'spc_adminCredsSet';
+      function getStoredHashes() {
+        var customSet = localStorage.getItem(CREDS_SET_KEY) === 'true';
+        var storedUser = localStorage.getItem('spc_adminUserHash');
+        var storedPass = localStorage.getItem('spc_adminPassHash');
+        // If custom credentials were set but hashes are missing/tampered → block login
+        if (customSet && (!storedUser || !storedPass)) {
+          return { userHash: null, passHash: null, blocked: true };
+        }
+        return {
+          userHash: storedUser || DEFAULT_USER_HASH,
+          passHash: storedPass || DEFAULT_PASS_HASH,
+          blocked: false
+        };
+      }
+
+      function showLogin() { loginOverlay.style.display = 'flex'; document.getElementById('loginUser').focus(); }
+      function hideLogin() { loginOverlay.style.display = 'none'; window.location.hash = ''; document.getElementById('loginUser').value = ''; document.getElementById('loginPass').value = ''; document.getElementById('loginError').textContent = ''; }
+      function showAdmin() { overlay.style.display = 'flex'; }
+      function hideAdmin() { overlay.style.display = 'none'; authenticated = false; window.location.hash = ''; }
+
+      // Open via #admin in URL — show login first
+      function tryOpenAdmin() {
+        if (authenticated) { showAdmin(); } else { showLogin(); }
+      }
+      if (window.location.hash === '#admin') tryOpenAdmin();
+      window.addEventListener('hashchange', function() {
+        if (window.location.hash === '#admin') tryOpenAdmin();
+      });
+
+      // Login submit
+      document.getElementById('loginSubmit').addEventListener('click', async function() {
+        var stored = getStoredHashes();
+        if (stored.blocked) {
+          document.getElementById('loginError').textContent = 'Access blocked — credentials tampered. Contact developer.';
+          return;
+        }
+        var user = document.getElementById('loginUser').value.trim();
+        var pass = document.getElementById('loginPass').value;
+        var userHash = await sha256(user);
+        var passHash = await sha256(pass);
+        if (userHash === stored.userHash && passHash === stored.passHash) {
+          authenticated = true;
+          hideLogin();
+          showAdmin();
+        } else {
+          document.getElementById('loginError').textContent = 'Invalid username or password';
+          document.getElementById('loginPass').value = '';
+        }
+      });
+      // Enter key on password field
+      document.getElementById('loginPass').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') document.getElementById('loginSubmit').click();
+      });
+      document.getElementById('loginUser').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') document.getElementById('loginPass').focus();
+      });
+      // Forgot password toggle
+      document.getElementById('forgotPassBtn').addEventListener('click', function() {
+        var sec = document.getElementById('recoverySection');
+        sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+      });
+
+      // Recovery key: hashed "SPC-MASTER-2026"
+      var RECOVERY_KEY_HASH = '';
+      (async function() {
+        RECOVERY_KEY_HASH = await sha256('SPC-MASTER-2026');
+      })();
+      document.getElementById('recoverySubmit').addEventListener('click', async function() {
+        var input = document.getElementById('recoveryKeyInput').value;
+        var inputHash = await sha256(input);
+        var statusEl = document.getElementById('recoveryStatus');
+        if (inputHash === RECOVERY_KEY_HASH) {
+          localStorage.removeItem('spc_adminUserHash');
+          localStorage.removeItem('spc_adminPassHash');
+          localStorage.removeItem(CREDS_SET_KEY);
+          statusEl.style.color = '#22c55e';
+          statusEl.textContent = '✓ Reset! Default login: admin / spc@2026';
+          document.getElementById('recoveryKeyInput').value = '';
+        } else {
+          statusEl.style.color = '#ef4444';
+          statusEl.textContent = 'Invalid recovery key';
+          document.getElementById('recoveryKeyInput').value = '';
+        }
+        setTimeout(function() { statusEl.textContent = ''; }, 5000);
+      });
+      document.getElementById('recoveryKeyInput').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') document.getElementById('recoverySubmit').click();
+      });
+
+      // Close login
+      document.getElementById('loginClose').addEventListener('click', hideLogin);
+      loginOverlay.addEventListener('click', function(e) { if (e.target === loginOverlay) hideLogin(); });
+
+      // Close admin
+      document.getElementById('adminClose').addEventListener('click', hideAdmin);
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) hideAdmin();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (loginOverlay.style.display === 'flex') hideLogin();
+          else if (overlay.style.display === 'flex') hideAdmin();
+        }
+      });
+
+      // Load saved settings
+      var fields = ['adminPublicKey', 'adminServiceId', 'adminTemplateId', 'adminEmail'];
+      fields.forEach(function(id) {
+        var saved = localStorage.getItem('spc_' + id);
+        if (saved) document.getElementById(id).value = saved;
+      });
+
+      // Save settings
+      document.getElementById('adminSave').addEventListener('click', function() {
+        fields.forEach(function(id) {
+          localStorage.setItem('spc_' + id, document.getElementById(id).value.trim());
+        });
+        document.getElementById('adminStatus').textContent = '✓ Settings saved!';
+        setTimeout(function() { document.getElementById('adminStatus').textContent = ''; }, 3000);
+      });
+
+      // Clear settings
+      document.getElementById('adminClear').addEventListener('click', function() {
+        fields.forEach(function(id) {
+          localStorage.removeItem('spc_' + id);
+          document.getElementById(id).value = '';
+        });
+        document.getElementById('adminStatus').textContent = 'Settings cleared.';
+        document.getElementById('adminStatus').style.color = '#999';
+        setTimeout(function() { document.getElementById('adminStatus').textContent = ''; document.getElementById('adminStatus').style.color = '#22c55e'; }, 3000);
+      });
+
+      // Save new credentials (hashed)
+      document.getElementById('adminSaveCreds').addEventListener('click', async function() {
+        var newUser = document.getElementById('adminNewUser').value.trim();
+        var newPass = document.getElementById('adminNewPass').value;
+        if (!newUser || !newPass) {
+          document.getElementById('credsStatus').textContent = 'Both fields required';
+          document.getElementById('credsStatus').style.color = '#ef4444';
+          setTimeout(function() { document.getElementById('credsStatus').textContent = ''; }, 3000);
+          return;
+        }
+        var userHash = await sha256(newUser);
+        var passHash = await sha256(newPass);
+        localStorage.setItem('spc_adminUserHash', userHash);
+        localStorage.setItem('spc_adminPassHash', passHash);
+        localStorage.setItem(CREDS_SET_KEY, 'true');
+        document.getElementById('adminNewUser').value = '';
+        document.getElementById('adminNewPass').value = '';
+        document.getElementById('credsStatus').style.color = '#22c55e';
+        document.getElementById('credsStatus').textContent = '✓ Login credentials updated!';
+        setTimeout(function() { document.getElementById('credsStatus').textContent = ''; }, 3000);
+      });
+    })();
+
+    // Visitor Analytics — localStorage based
+    (function() {
+      var KEY = 'spc_visitor_stats';
+      var LOG_KEY = 'spc_visitor_log';
+      function getStats() {
+        try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e) { return {}; }
+      }
+      function saveStats(s) { localStorage.setItem(KEY, JSON.stringify(s)); }
+      function getLog() {
+        try { return JSON.parse(localStorage.getItem(LOG_KEY)) || []; } catch(e) { return []; }
+      }
+      function saveLog(l) { localStorage.setItem(LOG_KEY, JSON.stringify(l)); }
+
+      // Detect device type from user agent
+      function getDevice() {
+        var ua = navigator.userAgent;
+        if (/Mobi|Android/i.test(ua)) return 'Mobile';
+        if (/Tablet|iPad/i.test(ua)) return 'Tablet';
+        return 'Desktop';
+      }
+      // Get browser name
+      function getBrowser() {
+        var ua = navigator.userAgent;
+        if (ua.indexOf('Edg') > -1) return 'Edge';
+        if (ua.indexOf('Chrome') > -1) return 'Chrome';
+        if (ua.indexOf('Firefox') > -1) return 'Firefox';
+        if (ua.indexOf('Safari') > -1) return 'Safari';
+        return 'Other';
+      }
+
+      // Record this visit
+      var stats = getStats();
+      var today = new Date().toISOString().slice(0, 10);
+      if (!stats.total) stats = { total: 0, days: {}, lastVisit: null };
+      stats.total++;
+      stats.days[today] = (stats.days[today] || 0) + 1;
+      stats.lastVisit = new Date().toLocaleString();
+      saveStats(stats);
+
+      // Log this visit
+      var log = getLog();
+      log.push({
+        time: new Date().toLocaleString(),
+        device: getDevice(),
+        browser: getBrowser(),
+        referrer: document.referrer || 'Direct',
+        page: location.pathname || '/'
+      });
+      // Keep last 200 entries max
+      if (log.length > 200) log = log.slice(-200);
+      saveLog(log);
+
+      // Populate stats
+      function updateStatsUI() {
+        var s = getStats();
+        var el = document.getElementById('statTotal');
+        if (el) el.textContent = s.total || 0;
+        var todayKey = new Date().toISOString().slice(0, 10);
+        var todayEl = document.getElementById('statToday');
+        if (todayEl) todayEl.textContent = (s.days && s.days[todayKey]) || 0;
+        var uniqueEl = document.getElementById('statUnique');
+        if (uniqueEl) uniqueEl.textContent = s.days ? Object.keys(s.days).length : 0;
+        var lastEl = document.getElementById('statLastVisit');
+        if (lastEl) lastEl.textContent = s.lastVisit || '—';
+      }
+
+      // Render visit log table
+      function renderLog() {
+        var tbody = document.getElementById('visitLogBody');
+        var emptyMsg = document.getElementById('visitLogEmpty');
+        var entries = getLog();
+        if (!tbody) return;
+        if (entries.length === 0) {
+          tbody.innerHTML = '';
+          if (emptyMsg) emptyMsg.style.display = 'block';
+          return;
+        }
+        if (emptyMsg) emptyMsg.style.display = 'none';
+        var rows = '';
+        for (var i = entries.length - 1; i >= 0; i--) {
+          var v = entries[i];
+          var rowBg = (entries.length - i) % 2 === 0 ? '#181818' : '#141414';
+          rows += '<tr style="background:' + rowBg + ';">'
+            + '<td style="padding:12px 16px;color:#555;border-bottom:1px solid rgba(255,255,255,0.05);">' + (entries.length - i) + '</td>'
+            + '<td style="padding:12px 16px;color:#ccc;border-bottom:1px solid rgba(255,255,255,0.05);white-space:nowrap;">' + v.time + '</td>'
+            + '<td style="padding:12px 16px;color:#999;border-bottom:1px solid rgba(255,255,255,0.05);">' + v.device + '</td>'
+            + '<td style="padding:12px 16px;color:#999;border-bottom:1px solid rgba(255,255,255,0.05);">' + v.browser + '</td>'
+            + '<td style="padding:12px 16px;color:#999;border-bottom:1px solid rgba(255,255,255,0.05);max-width:180px;overflow:hidden;text-overflow:ellipsis;">' + v.referrer + '</td>'
+            + '</tr>';
+        }
+        tbody.innerHTML = rows;
+      }
+
+      // Full page analytics
+      var analyticsPage = document.getElementById('analyticsPage');
+      var openBtn = document.getElementById('adminOpenAnalytics');
+      var closeBtn = document.getElementById('analyticsClose');
+      var adminOverlay = document.getElementById('adminOverlay');
+
+      if (openBtn) {
+        openBtn.addEventListener('click', function() {
+          adminOverlay.style.display = 'none';
+          analyticsPage.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+          updateStatsUI();
+          renderLog();
+        });
+      }
+      if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+          analyticsPage.style.display = 'none';
+          document.body.style.overflow = '';
+          adminOverlay.style.display = 'flex';
+        });
+      }
+
+      // Reset button
+      var resetBtn = document.getElementById('adminResetStats');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+          if (confirm('Reset all visitor analytics?')) {
+            localStorage.removeItem(KEY);
+            localStorage.removeItem(LOG_KEY);
+            updateStatsUI();
+            renderLog();
+          }
+        });
+      }
+    })();
+
+    // Contact Form — EmailJS
     (function() {
       var form = document.getElementById('contactForm');
       if (!form) return;
       form.addEventListener('submit', function(e) {
         e.preventDefault();
+        var publicKey = localStorage.getItem('spc_adminPublicKey') || '';
+        var serviceId = localStorage.getItem('spc_adminServiceId') || '';
+        var templateId = localStorage.getItem('spc_adminTemplateId') || '';
+        var toEmail = localStorage.getItem('spc_adminEmail') || '';
+
+        if (!publicKey || !serviceId || !templateId) {
+          alert('EmailJS not configured. Press Ctrl+Shift+A to open Admin Settings and add your EmailJS keys.');
+          return;
+        }
+
         var btn = form.querySelector('.form-submit');
-        btn.textContent = 'Message Sent!';
-        btn.style.background = '#22c55e';
-        setTimeout(function() { btn.textContent = 'Send Message \u2192'; btn.style.background = ''; }, 3000);
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+
+        emailjs.init(publicKey);
+        emailjs.send(serviceId, templateId, {
+          from_name: form.querySelector('input[name="name"]').value,
+          from_email: form.querySelector('input[name="email"]').value,
+          phone: form.querySelector('input[name="phone"]').value,
+          message: form.querySelector('textarea[name="message"]').value,
+          to_email: toEmail
+        }).then(function() {
+          btn.textContent = 'Message Sent!';
+          btn.style.background = '#22c55e';
+          form.reset();
+          setTimeout(function() { btn.textContent = 'Send Message \u2192'; btn.style.background = ''; btn.disabled = false; }, 3000);
+        }, function() {
+          btn.textContent = 'Failed. Try again.';
+          btn.style.background = '#e53e3e';
+          setTimeout(function() { btn.textContent = 'Send Message \u2192'; btn.style.background = ''; btn.disabled = false; }, 3000);
+        });
       });
     })();
 
@@ -3683,6 +4282,35 @@
       var b = document.getElementById('backToTop');
       window.addEventListener('scroll', function() { b.classList.toggle('visible', window.scrollY > 500); });
       b.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    })();
+
+    // Approach timeline — scroll progress fill
+    (function() {
+      var timeline = document.getElementById('approachTimeline');
+      var progress = document.getElementById('approachProgress');
+      if (!timeline || !progress) return;
+      window.addEventListener('scroll', function() {
+        var rect = timeline.getBoundingClientRect();
+        var windowH = window.innerHeight;
+        var timelineH = rect.height;
+        var scrolled = windowH - rect.top;
+        var pct = Math.max(0, Math.min(100, (scrolled / (timelineH + windowH * 0.3)) * 100));
+        progress.style.height = pct + '%';
+      });
+    })();
+
+    // Org chart spotlight follows mouse
+    (function() {
+      var wrap = document.getElementById('orgChartWrap');
+      if (wrap) {
+        wrap.addEventListener('mousemove', function(e) {
+          var rect = wrap.getBoundingClientRect();
+          var x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
+          var y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+          wrap.style.setProperty('--mx', x + '%');
+          wrap.style.setProperty('--my', y + '%');
+        });
+      }
     })();
 
     // PERFECT — bidirectional highlight between letters and cards
@@ -3771,6 +4399,41 @@
       });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closeModal();
+      });
+    })();
+
+    // Client cards — staggered fade-in + 3D tilt on hover
+    (function() {
+      var cards = document.querySelectorAll('.client-card');
+      if (!cards.length) return;
+      // Staggered entrance
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var idx = Array.prototype.indexOf.call(cards, entry.target);
+            entry.target.style.transition = 'opacity 0.5s ease ' + (idx * 60) + 'ms, transform 0.5s ease ' + (idx * 60) + 'ms';
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      cards.forEach(function(c) { observer.observe(c); });
+
+      // 3D tilt on hover
+      cards.forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var rect = card.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var midX = rect.width / 2;
+          var midY = rect.height / 2;
+          var rotY = ((x - midX) / midX) * 8;
+          var rotX = ((midY - y) / midY) * 8;
+          card.style.transform = 'perspective(600px) rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg) translateY(-6px)';
+        });
+        card.addEventListener('mouseleave', function() {
+          card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) translateY(0)';
+        });
       });
     })();
   </script>
